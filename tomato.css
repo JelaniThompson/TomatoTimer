@@ -1,14 +1,6 @@
 html {
   /*font-family: 'Open Sans', sans-serif;*/
-  font-family: 'Lobster', cursive;
   color: white;
-}
-
-#buttonContainer {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
 }
 
 .section {
@@ -20,6 +12,7 @@ html {
 }
 
 .section#red {
+  font-family: 'Lobster', cursive;
   background-color: red;
   font-size: 60px;
 }
@@ -29,31 +22,34 @@ html {
   color: #000000;
 }
 
+#time {
+  margin-top: 1%;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 60px !important;
+}
+
+#buttonWrapper {
+  display: flex;
+  justify-content: center;
+}
+
 .button {
   margin: 0 0 0 13px;
   text-align: center;
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif !important;
+  border: 2px solid white;
+  font-size: 20px;
   width: 100px;
   height: 50px;
 }
 
-.button#button25 {
-  background-color: #49DD1C;
-}
-
-.button#button10 {
-  background-color: #FF1E00;
-}
-
-.button#button5 {
-  background-color: yellow;
-}
-
-#pomoCounter {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  background-color: lightgray;
-  width: 500px;
-  height: 300px;
+.button:hover {
+  cursor: pointer;
+  border: 2px solid red;
+  background-color: white;
+  color: red;
 }
