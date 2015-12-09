@@ -5,13 +5,14 @@
 </head>
 
   <div class="section" id="red">
+    <span id="title">
     Campbell's Tomato Timer
+  </span>
     <div id="time">
-      25:00
+
     </div>
 
-<div id="buttonWrapper">
-
+<div class="buttonWrapper">
     <div class="button" id="start">
       <span class="controls">Start</span>
     </div>
@@ -19,12 +20,29 @@
     <div class="button" id="stop">
       <span class="controls">Stop</span>
     </div>
-
 </div>
+
+<!--Here add buttons to customize the time-->
+<span id="text">Increase/Decrease Length</span>
+<div class="buttonWrapper">
+   <div id="increaseLength" class="button incrementWork">+</div>
+   <div id="decreaseLength" class="button decrementWork">-</div>
+ </div>
+
+ <span id="text">Increase/Decrease Break</span>
+ <div class="buttonWrapper">
+    <div id="increaseBreak" class="button incrementBreak">+</div>
+    <div id="decreaseBreak" class="button decrementBreak">-</div>
+  </div>
 
 </div>
 
 <!--Use Flexbox column thingamajig-->
-  <div class="section" id="white">Information columns divided by lines here</div>
-
- <script type="text/javascript" src="tomato.js"></script>
+<div class="section" id="white">
+  <p>Ok, we're using this to display the countdown timer now</p>
+  <div id="timeDisplay"></div>
+  <div id="workDisplay"></div>
+  <div id="breakDisplay"></div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="tomato.js"></script>

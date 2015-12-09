@@ -1,6 +1,11 @@
 html {
   /*font-family: 'Open Sans', sans-serif;*/
   color: white;
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+#title {
+  font-family: 'Lobster', cursive;
 }
 
 .section {
@@ -11,10 +16,10 @@ html {
   box-sizing: border-box;
 }
 
+
 .section#red {
-  font-family: 'Lobster', cursive;
   background-color: red;
-  font-size: 60px;
+  font-size: 35px;
 }
 
 .section#white {
@@ -24,11 +29,10 @@ html {
 
 #time {
   margin-top: 1%;
-  font-family: 'Open Sans', sans-serif !important;
   font-size: 60px !important;
 }
 
-#buttonWrapper {
+.buttonWrapper {
   display: flex;
   justify-content: center;
 }

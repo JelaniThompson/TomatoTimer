@@ -13,10 +13,15 @@ var settings = {
   breakPeriod : 0
 };
 
+//Call the .on function on button to have values update
 $('.button').on('click', checkPeriod);
 
 //Increment/Decrement work periods and breaks
 function checkPeriod() {
+  var timeDisplay = document.getElementById("timeDisplay");
+  var workDisplay = document.getElementById("workDisplay");
+  var breakDisplay = document.getElementById("breakDisplay");
+
   if( $(this).hasClass("incrementWork") ) {
     settings.workPeriod += 1;
     console.log("Work Length: " + settings.workPeriod);
@@ -36,10 +41,17 @@ function checkPeriod() {
     settings.breakPeriod -= 1;
     console.log("Break Length: " + settings.breakPeriod);
   }
+  workDisplay.innerHTML = settings.workPeriod;
+  breakDisplay.innerHTML = settings.breakPeriod;
 }
 
 //Display timer in DOM
-var DOM = document.getElementById("timeDisplay");
-DOM.innerHTML = "Woah, hey guys!";
+$('#start').on('click', displayTime);
+
+function displayTime() {  
+  timeDisplay.innerHTML = settings.workPeriod;
+}
+
+checkPeriod();
 
 //Counting down
