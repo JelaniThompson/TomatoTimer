@@ -2,8 +2,8 @@ html {
     /*font-family: 'Open Sans', sans-serif;*/
     color: white;
     font-family: 'Open Sans', sans-serif !important;
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
 }
 
 #title {
@@ -23,19 +23,30 @@ html {
     font-size: 30px;
 }
 
-#breakControls {
-  display:flex;
-  align-items:center;
-  justify-content:center;
+#breakControls,
+#workControls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#break {
+#break,
+#work {
     font-size: 0.7em;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
 }
 
-#breakNum {
+#breakNum,
+#workNum {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+#controlContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 #counterContainer,
@@ -64,9 +75,11 @@ html {
     color: red;
 }
 
+
 /*Make sure drag color doesn't appear when clicking button*/
-.noSelect { 
-  -webkit-user-select: none;                                                                 
+
+.noSelect {
+    -webkit-user-select: none;
 }
 
 .button {

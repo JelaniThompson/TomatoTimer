@@ -7,9 +7,12 @@ function timeCalculations(endTime) {
     var minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
 }
 
+var workDisplay = document.getElementById("workNum");
+var breakDisplay = document.getElementById("breakNum");
+
 //Default values for increment and decrement
 var settings = {
-    workPeriod: 0,
+    workPeriod: 25,
     breakPeriod: 5
 };
 
@@ -19,33 +22,33 @@ $('.controls').on('click', checkPeriod);
 
 //Increment/Decrement work periods and breaks
 function checkPeriod() {
-    var workDisplay = document.getElementById("workDisplay");
-    var breakDisplay = document.getElementById("breakNum");
-
-    if ($(this).hasClass("incrementWork")) {
+    if ($(this).hasClass("workPlus")) {
         settings.workPeriod += 1;
-        console.log("Work Length: " + settings.workPeriod);
-    } else if ($(this).hasClass("decrementWork")) {
-        settings.workPeriod -= 1;
         console.log("Work Length: " + settings.workPeriod);
     } else if ($(this).hasClass("breakPlus")) {
         settings.breakPeriod += 1;
         console.log("Break Length: " + settings.breakPeriod);
-    } else if ($(this).hasClass("breakMinus")) {
-        settings.breakPeriod -= 1;
-        console.log("Break Length: " + settings.breakPeriod);
-
-        //Check if value going below zero
-        if (settings.breakPeriod < 0) {
-            //Don't subtract
-            $('#workDisplay').innerHTML = settings.breakPeriod;
-        }
     }
-
-    //Display the number for breaks or work periods
-    $('#workDisplay').innerHTML = settings.workPeriod;
     breakDisplay.innerHTML = settings.breakPeriod;
+    workDisplay.innerHTML = settings.workPeriod;
 }
+
+//Make sure you can't go below 0 when clicking minus
+$(".breakMinus").on('click', _ => {
+    if (settings.breakPeriod > 0) {
+        settings.breakPeriod -= 1;
+        breakDisplay.innerHTML = settings.breakPeriod;
+        console.log(settings.breakPeriod);
+    }
+});
+
+$('.workMinus').on('click', _ => {
+    if (settings.workPeriod > 0) {
+        settings.workPeriod -= 1;
+        workDisplay.innerHTML = settings.workPeriod;
+        console.log(settings.workPeriod);
+    }
+});
 
 checkPeriod();
 
