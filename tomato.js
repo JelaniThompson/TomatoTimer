@@ -1,11 +1,9 @@
-//Get the time the timer is supposed to end and subtract it from the current time to calculate time remaining
-function timeCalculations(endTime) {
-    var timeRemaining = Date.parse(endTime) - Date.parse(new Date());
-    //Perform .floor() to get whole seconds after minute has been counted
-    //Divide timeRemaining by 1000 to get seconds and not milliseconds
-    var seconds = Math.floor((timeRemaining / 1000) % 60);
-    var minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
-}
+//Perform .floor() to get whole seconds after minute has been counted
+var breakMinutes = Math.floor((settings.breakPeriod / 1000 / 60) % 60);
+var workMinutes = Math.floor((settings.workPeriod / 1000 / 60) % 60);
+//Divide timeRemaining by 1000 to get seconds and not milliseconds
+var breakSeconds = Math.floor((settings.breakPeriod / 1000) % 60);
+var workSeconds = Math.floor((settings.workPeriod / 1000) % 60);
 
 var workDisplay = document.getElementById("workNum");
 var breakDisplay = document.getElementById("breakNum");
@@ -50,13 +48,11 @@ $('.workMinus').on('click', _ => {
     }
 });
 
-checkPeriod();
 
 //Display time when you click the circle
-$('#start').on('click', displayTime);
-
-function displayTime() {
-    //timeDisplay.innerHTML = settings.workPeriod;
-}
+//$('#start').on('click', displayTime);
 
 //Counting down
+//Multiply work/breakPeriod by minutes variable
+
+checkPeriod();
