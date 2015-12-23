@@ -1,22 +1,70 @@
-//Perform .floor() to get whole seconds after minute has been counted
-var breakMinutes = Math.floor((settings.breakPeriod / 1000 / 60) % 60);
-var workMinutes = Math.floor((settings.workPeriod / 1000 / 60) % 60);
-//Divide timeRemaining by 1000 to get seconds and not milliseconds
-var breakSeconds = Math.floor((settings.breakPeriod / 1000) % 60);
-var workSeconds = Math.floor((settings.workPeriod / 1000) % 60);
-
-var workDisplay = document.getElementById("workNum");
-var breakDisplay = document.getElementById("breakNum");
+'use strict';
 
 //Default values for increment and decrement
-var settings = {
+let settings = {
     workPeriod: 25,
     breakPeriod: 5
 };
 
-//Call the .on function on button to have values update
-//$('.button').on('click', checkPeriod);
-$('.controls').on('click', checkPeriod);
+//Visual representation of work/break times
+let workDisplay = document.getElementById("workNum");
+let breakDisplay = document.getElementById("breakNum");
+
+//Check for new time every second with setInterval
+let newTime = new Date();
+let second = 1000;
+let minute = 60000;
+
+
+//Call this function every second
+let updateSecond = function() {
+    updateSecond.called = true;
+    console.log(second);
+    //Update workPeriod or breakPeriod depending on current thingy
+    //settings.workPeriod - 1;
+}
+
+updateSecond();
+
+//Prevent overlapping when calling each second
+if (updateSecond.called) {
+    setInterval(updateSecond, second);
+}
+
+//Status of starting and stopping the timer
+let started;
+let stopped = false;
+
+//Count elapsed second
+function updateElapsedTime() {
+}
+
+//Now make updateElapsedMinute()
+function updateElapsedMinute() {
+    //use .substring(0, 2) - 1 on minute(60000) to countdown each second
+}
+
+//Start Timer
+function startTimer() {
+    stopped = false;
+    started = true;
+}
+
+//Stop Timer
+function stopTimer() {
+    started = false;
+    stopped = true;
+    clearInterval(startTime);
+}
+
+//Check if timer is stopped or started
+$('#counter').on('click', function() {
+    if (stopped = true) {
+        startTimer();
+    } else if (started = true) {
+        stopTimer();
+    }
+});
 
 //Increment/Decrement work periods and breaks
 function checkPeriod() {
@@ -27,6 +75,7 @@ function checkPeriod() {
         settings.breakPeriod += 1;
         console.log("Break Length: " + settings.breakPeriod);
     }
+
     breakDisplay.innerHTML = settings.breakPeriod;
     workDisplay.innerHTML = settings.workPeriod;
 }
@@ -48,11 +97,7 @@ $('.workMinus').on('click', _ => {
     }
 });
 
-
-//Display time when you click the circle
-//$('#start').on('click', displayTime);
-
-//Counting down
-//Multiply work/breakPeriod by minutes variable
+//Call the .on function on button to have values update
+$('.controls').on('click', checkPeriod);
 
 checkPeriod();
