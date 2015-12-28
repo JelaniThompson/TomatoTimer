@@ -1,6 +1,6 @@
 'use strict';
 
-//Default values for increment and decrement
+//Default values for increment and decrementing the minute
 let settings = {
     workPeriod: 25,
     breakPeriod: 5
@@ -9,14 +9,16 @@ let settings = {
 //Visual representation of work/break times
 let workDisplay = document.getElementById("workNum");
 let breakDisplay = document.getElementById("breakNum");
-
-//Check for new time every second with setInterval
 let newTime = new Date();
 let second = 1000;
 let minute = 60000;
 
+//Take the first two values from the minute variable (omit '60' from '60000')
+let splitMinute = ("" + minute).split("", 2).join('');
 
-//Call this function every second
+//Make a splitSecond too (splitSecond * workPeriod / breakPeriod) http://imgur.com/W927Cn5
+
+//Do something every second
 let updateSecond = function() {
     updateSecond.called = true;
     console.log(second);
@@ -24,25 +26,30 @@ let updateSecond = function() {
     //settings.workPeriod - 1;
 }
 
-updateSecond();
+//Do something every minute
+let updateMinute = function() {
+    updateMinute.called = true;
+    //use .substring(0, 2) - 1 on minute(60000) to countdown each second
+    splitMinute -= 1;
+    console.log(splitMinute);
+}
 
-//Prevent overlapping when calling each second
+//Initialize counting
+updateSecond();
+updateMinute();
+
+//Prevent overlapping when calling each second or minute and check for new time every second with setInterval
 if (updateSecond.called) {
     setInterval(updateSecond, second);
 }
 
-//Status of starting and stopping the timer
+if (updateMinute.called) {
+    setInterval(updateMinute, minute);
+}
+
+//Status of starting and stopping the timer (stopped by default)
 let started;
 let stopped = false;
-
-//Count elapsed second
-function updateElapsedTime() {
-}
-
-//Now make updateElapsedMinute()
-function updateElapsedMinute() {
-    //use .substring(0, 2) - 1 on minute(60000) to countdown each second
-}
 
 //Start Timer
 function startTimer() {
@@ -75,7 +82,6 @@ function checkPeriod() {
         settings.breakPeriod += 1;
         console.log("Break Length: " + settings.breakPeriod);
     }
-
     breakDisplay.innerHTML = settings.breakPeriod;
     workDisplay.innerHTML = settings.workPeriod;
 }
