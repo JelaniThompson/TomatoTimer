@@ -9,27 +9,27 @@ let settings = {
 //Visual representation of work/break times
 let workDisplay = document.getElementById("workNum");
 let breakDisplay = document.getElementById("breakNum");
+
+//Time and states
 let newTime = new Date();
 let second = 1000;
 let minute = 60000;
-
-//Take the first two values from the minute variable (omit '60' from '60000')
-let splitMinute = ("" + minute).split("", 2).join('');
-
-//Make a splitSecond too (splitSecond * workPeriod / breakPeriod) http://imgur.com/W927Cn5
+let breakState,
+    workState = true;
 
 //Do something every second
 let updateSecond = function() {
     updateSecond.called = true;
-    console.log(second);
     //Update workPeriod or breakPeriod depending on current thingy
     //settings.workPeriod - 1;
 }
 
+//Take the first two values from the minute variable (omit '60' from '60000') default to workPeriod
+let splitMinute = ("" + settings.workPeriod).split("", 2).join('');
+
 //Do something every minute
 let updateMinute = function() {
     updateMinute.called = true;
-    //use .substring(0, 2) - 1 on minute(60000) to countdown each second
     splitMinute -= 1;
     console.log(splitMinute);
 }
@@ -103,7 +103,35 @@ $('.workMinus').on('click', _ => {
     }
 });
 
+//* Set state for Minutes depending on what was last clicked (break controls or work controls)s
+function setState() {
+    $('.breakButton').on('click', _ => {
+        breakState = true;
+        workState = false;
+        console.log("Break State: " + breakState);
+        console.log("Work State: " + workState);
+    });
+
+    $('.workButton').on('click', _ => {
+        workState = true;
+        breakState = false;
+        console.log("Break State: " + breakState);
+        console.log("Work State: " + workState);
+    });
+
+    if (workState == true) {
+        splitMinute = ("" + settings.workPeriod).split("", 2).join('');
+    } else if (breakState == true) {
+        splitMinute = ("" + settings.breakPeriod).split("", 2).join('');
+    }
+}
+
 //Call the .on function on button to have values update
 $('.controls').on('click', checkPeriod);
 
 checkPeriod();
+setState();
+
+//TODO
+//* Multiply by breakPeriod or WorkPeriod to display minutes left
+//* Finally set what it displays when subtracting (check updateSecond and updateMinute functions)
