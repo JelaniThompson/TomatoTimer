@@ -1,21 +1,23 @@
 'use strict';
 
-//Visual representation of work/break times (change this to jQuery later)
-let workDisplay = document.getElementById("workNum");
-let breakDisplay = document.getElementById("breakNum");
+//Visual representation of work/break times
+let $workDisplay = $("#workNum"),
+    $breakDisplay = $("#breakNum"),
+    $workMinus = $(".workMinus"),
+    $workPlus = $(".workPlus"),
+    $breakMinus = $(".breakMinus"),
+    $breakPlus = $(".breakPlus"); 
 
-//Status of starting and stopping the timer (stopped by default)
-let status;
+//Initialize date object to work with functions (seven 0's to remove default local time)
+let time = new Date(0, 0, 0, 0, 0, 0, 0);
 
 let state = 'off';
 
 //Set time dynamically
 let setTime = function(minutes, seconds) {
-    minutes = 0;
-    seconds = 0;
+    time.setMinutes(minutes);
+    time.setSeconds(seconds);
 }
-
-setTime();
 
 //Timer states
 let toggleTimer = function(newState) {
@@ -38,7 +40,12 @@ let checkState = function() {
 
 //Start working on countdown
 let countdown = function() {
-	setTime.seconds -= 1;
+
 }
+
+$(".workMinus").on('click', _ => {
+	//time.setMinutes(minutes -= 1);
+	console.log("test");
+});
 
 console.log(state);
