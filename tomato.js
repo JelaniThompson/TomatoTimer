@@ -32,10 +32,13 @@ $("#counter").on('click', () => toggleTimer());
 //Check state
 let checkState = function() {
     if (state == 'on') {
-        console.log('Countdown function will be here.');
+        countdown();
     }
 }
 
 //Start working on countdown
+let countdown = function() {
+	setTime.seconds -= 1;
+}
 
 console.log(state);
