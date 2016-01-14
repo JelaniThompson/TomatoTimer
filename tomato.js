@@ -6,7 +6,7 @@ let $workDisplay = $("#workNum"),
     $workMinus = $(".workMinus"),
     $workPlus = $(".workPlus"),
     $breakMinus = $(".breakMinus"),
-    $breakPlus = $(".breakPlus"); 
+    $breakPlus = $(".breakPlus");
 
 //Initialize date object to work with functions (seven 0's to remove default local time)
 let time = new Date(0, 0, 0, 0, 0, 0, 0);
@@ -15,9 +15,16 @@ let state = 'off';
 
 //Set time dynamically
 let setTime = function(minutes, seconds) {
-    time.setMinutes(minutes);
-    time.setSeconds(seconds);
+    minutes = time.setMinutes(minutes);
+    seconds = time.setSeconds(seconds);
 }
+
+//Default value for minutes and seconds (25)
+setTime(25, 0);
+
+let getMinutes = time.getMinutes(setTime.minutes);
+
+$workDisplay.text(getMinutes);
 
 //Timer states
 let toggleTimer = function(newState) {
@@ -40,12 +47,17 @@ let checkState = function() {
 
 //Start working on countdown
 let countdown = function() {
-
+	//console.log("soak console.logs in wood");
 }
 
-$(".workMinus").on('click', _ => {
-	//time.setMinutes(minutes -= 1);
-	console.log("test");
+//Update time display every second
+let updateTimeDisplay = window.setInterval(countdown, 1000);
+
+$workMinus.on('click', function() {
+    getMinutes -= 1;
+    console.clear();
+    $workDisplay.text(getMinutes);
+    console.log(getMinutes);
 });
 
 console.log(state);
