@@ -21,23 +21,32 @@ let setTime = function(minutes, seconds) {
 }
 
 //Default value for minutes and seconds (25)
-setTime(25, 0);
+setTime(24, 60);
 
 let getMinutes = time.getMinutes(setTime.minutes);
+let getSeconds = time.getSeconds(setTime.seconds);
+
 $workDisplay.text(getMinutes);
 $counter.text(getMinutes);
 
 //Timer states
 let toggleTimer = function(newState) {
+    displayTime();
+
     if (state !== 'done') {
         //The ? serves as a toggle (statement ? true value : false value)
         state = newState || (state == 'on' ? 'off' : 'on');
     }
+
+    if (state == 'off') {
+        $counter.text(getMinutes + ":" + getSeconds);
+    }
     console.log(state);
 }
 
-$("#counter").on('click', () => toggleTimer());
+$counter.on('click', () => toggleTimer());
 
+//Shrink these with an if statement later (check Dustin's DMs on Slack)
 $workMinus.on('click', function() {
     getMinutes -= 1;
     console.clear();
@@ -58,18 +67,23 @@ $workPlus.on('click', function() {
 let countdownSecond = function() {
     if (state == 'on') {
         //Seconds stuff
+        getSeconds -= 1;
+        $counter.text(getMinutes + ":" + getSeconds);
     }
 }
 
 let countdownMinute = function() {
     if (state == 'on') {
-        $counter.text(getMinutes -= 1);
+        getMinutes--;
+        $counter.text(getMinutes + ":" + getSeconds);
     }
 }
 
 //Update time display every minute/second
-window.setInterval(countdownMinute, 60000)
-window.setInterval(countdownSecond, 1000);
+function displayTime() {
+    window.setInterval(countdownSecond, 1000);
+    window.setInterval(countdownMinute, 60000)
+}
 
 console.log(state);
 
