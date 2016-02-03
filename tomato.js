@@ -9,38 +9,44 @@ let $workDisplay = $("#workNum"),
     $breakPlus = $(".breakPlus"),
     $counter = $("#counter");
 
-//Initialize date object to work with functions (seven 0's to remove default local time)
-let time = new Date(0, 0, 0, 0, 0, 0, 0);
+//Create a date object for the start 
+let date = new Date(0, 0, 0, 0, 0, 0, 0);
+
+//Default value for minutes (25)
+date.setMinutes(25);
+
+//Prevent delayed loading in
+$workDisplay.text(date.getMinutes());
+$counter.text(date.getMinutes());
+
+//Return seconds as M:SS
+function displayTime(minutes, seconds) {
+    $counter.text(date.getMinutes() + ":" + date.getSeconds());
+    $workDisplay.text(date.getMinutes());
+    //Add a way to check if a number needs a 0 prepended with an if statement (<10)
+    if(date.getSeconds() < 10) {
+        $counter.text(date.getMinutes() + ":" + "0" + date.getSeconds());
+    }
+}
+
+setInterval(function() {
+    date.setSeconds(date.getSeconds() - 1);
+}, 1000);
+
+setInterval(displayTime, 1000);
 
 let state = 'off';
 
-//Set time dynamically
-let setTime = function(minutes, seconds) {
-    time.setMinutes(minutes);
-    time.setSeconds(seconds);
-}
-
-//Default value for minutes and seconds (25)
-setTime(25, 1);
-
-let getMinutes = time.getMinutes();
-let getSeconds = time.getSeconds();
-
-$workDisplay.text(getMinutes);
-$counter.text(getMinutes);
+//Make a function to display time as MM:SS
 
 //Timer states
 let toggleTimer = function(newState) {
-    displayTime();
     if (state !== 'done') {
         //The ? serves as a toggle (statement ? true value : false value)
         state = newState || (state == 'on' ? 'off' : 'on');
     }
-
-    if (state == 'off') {
-        $counter.text(getMinutes + ":" + getSeconds);
-    }
     console.log(state);
+    //$counter.text(state);
 }
 
 $counter.on('click', () => toggleTimer());
@@ -62,27 +68,4 @@ $workPlus.on('click', function() {
     console.log(getMinutes);
 });
 
-//Count down seconds and minutes
-let countdownSecond = function() {
-    if (state == 'on') {
-        time.setSeconds(getSeconds -= 1);
-        $counter.text(getMinutes + ":" + getSeconds);
-    }
-}
-
-let countdownMinute = function() {
-    if (state == 'on') {
-        getMinutes--;
-        $counter.text(getMinutes + ":" + getSeconds);
-    }
-}
-
-//Update time display every minute/second
-function displayTime() {
-    window.setInterval(countdownSecond, 1000);
-    window.setInterval(countdownMinute, 60000)
-}
-
 console.log(state);
-
-//REMEMBER. BREAK TIMER ONLY ACTIVATES ONCE WORK TIMER IS FINISHED. THIS MAKES EVERYTHING MUCH EASIER
