@@ -1,5 +1,7 @@
 'use strict';
 
+//Jet fuel can't melt dank memes
+
 //Visual representation of work/break times and counter
 let $workDisplay = $("#workNum"),
     $breakDisplay = $("#breakNum"),
