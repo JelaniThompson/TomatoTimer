@@ -27,8 +27,6 @@ $counter.text(date.getMinutes());
 function displayTime(minutes, seconds) {
     if (state == "on") {
         $counter.text(date.getMinutes() + ":" + date.getSeconds());
-    } else {
-        $counter.text(date.getMinutes());
     }
 
     $workDisplay.text(date.getMinutes());
@@ -63,7 +61,8 @@ $counter.on('click', () => toggleTimer());
 
 //Shrink these with an if statement later (check Dustin's DMs on Slack)
 $workMinus.on('click', function() {
-    if (state == "off") {
+    if (state == "off" && date.getMinutes() > 1) {
+        date.setSeconds(0);
         date.setMinutes(date.getMinutes() - 1);
         $workDisplay.text(date.getMinutes());
     }
@@ -71,6 +70,7 @@ $workMinus.on('click', function() {
 
 $workPlus.on('click', function() {
     if (state == "off") {
+        date.setSeconds(0);
         date.setMinutes(date.getMinutes() + 1);
         $workDisplay.text(date.getMinutes());
     }
