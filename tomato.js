@@ -31,7 +31,8 @@ function displayTime(minutes, seconds) {
     if (state == "on") {
         $counter.text(date.getMinutes() + ":" + date.getSeconds());
     }
-    //Add a way to check if a number needs a 0 prepended with an if statement (<10)
+
+    //If a number needs a 0 prepended with an if statement (<10)
     if (state == "on") {
         if (date.getSeconds() < 10) {
             $counter.text(date.getMinutes() + ":" + "0" + date.getSeconds());
@@ -39,9 +40,17 @@ function displayTime(minutes, seconds) {
     }
 }
 
-setInterval(function() {
+let countdown = setInterval(function() {
     if (state == 'on') {
         date.setSeconds(date.getSeconds() - 1);
+    }
+
+    //Set state to done to trigger alarm sound to play
+    if (date.getMinutes() == 0 && date.getSeconds() == 0) {
+        console.log("Test: setting state to done");
+        state = "done";
+        clearInterval(countdown);
+        alarmSound.play();
     }
 }, 1000);
 
@@ -67,7 +76,6 @@ $workMinus.on('click', function() {
         date.setMinutes(date.getMinutes() - 1);
         $workDisplay.text(date.getMinutes());
     }
-    //Make it so that workDisplay displays a constant value
 });
 
 $workPlus.on('click', function() {
