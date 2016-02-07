@@ -14,6 +14,9 @@ let $workDisplay = $("#workNum"),
 //Create a date object for the start 
 let date = new Date(0, 0, 0, 0, 0, 0, 0);
 
+//Alarm audio
+let alarmSound = new Audio('http://www.oringz.com/oringz-uploads/b2_oringz-pack-nine-17.mp3');
+
 let state = 'off';
 
 //Default value for minutes (25)
@@ -28,8 +31,6 @@ function displayTime(minutes, seconds) {
     if (state == "on") {
         $counter.text(date.getMinutes() + ":" + date.getSeconds());
     }
-
-    $workDisplay.text(date.getMinutes());
     //Add a way to check if a number needs a 0 prepended with an if statement (<10)
     if (state == "on") {
         if (date.getSeconds() < 10) {
@@ -66,10 +67,11 @@ $workMinus.on('click', function() {
         date.setMinutes(date.getMinutes() - 1);
         $workDisplay.text(date.getMinutes());
     }
+    //Make it so that workDisplay displays a constant value
 });
 
 $workPlus.on('click', function() {
-    if (state == "off") {
+    if (state == "off" && date.getMinutes() < 59) {
         date.setSeconds(0);
         date.setMinutes(date.getMinutes() + 1);
         $workDisplay.text(date.getMinutes());
