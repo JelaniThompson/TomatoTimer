@@ -1,6 +1,7 @@
 'use strict';
 
-//Jet fuel can't melt dank memes
+//TODO:
+//Finally, make it possible to restart timer after the break timer is finished
 
 //Visual representation of work/break times and counter
 let $workDisplay = $("#workNum"),
@@ -54,25 +55,24 @@ function displayTime(minutes, seconds) {
         }
 
         if (breakCounter.getMinutes() == 0 && breakCounter.getSeconds() == 0) {
-            state = "on";
-            date.setMinutes(25);
             alarmSound.play();
+            date.setMinutes(25);
+            state = "on";
         }
     }
 }
 
 setInterval(displayTime, 1000);
 
+//Counting Down
 let countdown = setInterval(function() {
     if (state == 'on') {
         date.setSeconds(date.getSeconds() - 1);
-    }
-
-    //Set state to done to trigger alarm sound to play
-    if (date.getMinutes() == 0 && date.getSeconds() == 0) {
-        state = "done";
-        clearInterval(countdown);
-        alarmSound.play();
+        //Set state to done to trigger alarm sound to play
+        if (date.getMinutes() == 0 && date.getSeconds() == 0) {
+            state = "done";
+            alarmSound.play();
+        }
     }
 }, 1000);
 
@@ -84,6 +84,7 @@ let toggleTimer = function(newState) {
         state = newState || (state == 'on' ? 'off' : 'on');
     }
     console.log(state);
+    //Add restart state
 }
 
 $counter.on('click', () => toggleTimer());
@@ -106,15 +107,19 @@ $workPlus.on('click', function() {
 });
 
 $breakMinus.on('click', function() {
-    if (state == "done" || "off" && breakCounter.getMinutes() > 1) {
+    if (state == "off" && breakCounter.getMinutes() > 1) {
         breakCounter.setSeconds(0);
         breakCounter.setMinutes(breakCounter.getMinutes() - 1);
         $breakDisplay.text(breakCounter.getMinutes());
     }
+
+    if (state == "done") {
+        console.log("Can't change time");
+    }
 });
 
 $breakPlus.on('click', function() {
-    if (state == "done" || "off" && breakCounter.getMinutes() < 59) {
+    if (state == "off" && breakCounter.getMinutes() < 59) {
         breakCounter.setSeconds(0);
         breakCounter.setMinutes(breakCounter.getMinutes() + 1);
         $breakDisplay.text(breakCounter.getMinutes());

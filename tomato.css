@@ -6,6 +6,10 @@ html {
     margin: 0;
 }
 
+* {
+    margin: auto;
+}
+
 #title {
     font-family: 'Lobster', cursive;
     font-size: 1.5em;
